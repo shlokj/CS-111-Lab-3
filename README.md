@@ -30,7 +30,7 @@ In the `hash_table_v2_add_entry` function, the individual entry is locked, allow
 
 As we can see in the Running section of this readme, the v2 hash table is significantly faster than the base implementation. This is because it optimally handles multiple threads without losing items.
 
-This time the speed up is around 4 times.
+This time the speed up is around 4 times because of how multithreading is handled.
 
 ## Cleaning up
 
