@@ -9,7 +9,7 @@ To run the tester to get values for how long the hash table took to complete gen
 
 For example,
 
-<img width="600" alt="image" src="https://github.com/shlokj/cs111-lab3/assets/34567765/70147940-a493-4185-86fc-71945eb2bc0e">
+<img width="700" alt="image" src="https://github.com/shlokj/cs111-lab3/assets/34567765/484a084b-c76a-429f-b4af-a076061e9715">
 
 ## First Implementation
 
@@ -19,21 +19,21 @@ In the `hash_table_v1_add_entry` function, I call `pthread_mutex_lock` at the ve
 
 ### Performance
 
-As we can see in the Running section of this readme, the v1 hash table is slower than the base implementation. This is expected since there is overhead due to the thread locking. Threads must wait for others to complete before accessing the hash table, resulting in longer wait times.
-
-This time version 1 is xxx
+As we can see in the Running section of this readme, the v1 hash table is slower than the base implementation - around twice as slow. This is expected since there is overhead due to the thread locking. Threads must wait for others to complete before accessing the hash table, resulting in longer wait times.
 
 ## Second Implementation
-In the `hash_table_v2_add_entry` function, xxx
+In my v1 implementation, instead of having a single mutex for the entire hash table, I have one mutex for each `hash_table_entry` (bucket) in the hash table. This way, items that are to be put in different buckets by different threads can happen in parallel, allowing a speedup.
+
+In the `hash_table_v2_add_entry` function, the individual entry is locked, allowing other threads to add items to other buckets as long as they are not already in use. This is both thread-safe and fast.
 
 ### Performance
-```shell
 
-```
+As we can see in the Running section of this readme, the v2 hash table is significantly faster than the base implementation. This is because it optimally handles multiple threads without losing items.
 
-This time the speed up is xxx
+This time the speed up is around 4 times.
 
 ## Cleaning up
-```shell
 
-```
+To clean up all binary files, run `make clean`.
+
+
