@@ -9,7 +9,7 @@ To run the tester to get values for how long the hash table took to complete gen
 
 For example,
 
-<img width="280" alt="image" src="https://github.com/shlokj/cs111-lab3/assets/34567765/70147940-a493-4185-86fc-71945eb2bc0e">
+<img width="600" alt="image" src="https://github.com/shlokj/cs111-lab3/assets/34567765/70147940-a493-4185-86fc-71945eb2bc0e">
 
 ## First Implementation
 In the `hash_table_v1_add_entry` function, xxx
