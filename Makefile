@@ -1,3 +1,4 @@
+CC=gcc
 ifeq ($(shell uname -s),Darwin)
 	CFLAGS = -std=gnu17 -pthread -Wall -O0 -pipe -fno-plt -fPIC -I. -I/opt/homebrew/include
 	LDFLAGS = -pthread -L$(shell brew --prefix)/lib -largp
