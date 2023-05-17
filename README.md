@@ -22,7 +22,7 @@ In the `hash_table_v1_add_entry` function, I call `pthread_mutex_lock` at the ve
 As we can see in the Running section of this readme, the v1 hash table is slower than the base implementation - around twice as slow. This is expected since there is overhead due to the thread locking. Threads must wait for others to complete before accessing the hash table, resulting in longer wait times.
 
 ## Second Implementation
-In my v1 implementation, instead of having a single mutex for the entire hash table, I have one mutex for each `hash_table_entry` (bucket) in the hash table. This way, items that are to be put in different buckets by different threads can happen in parallel, allowing a speedup.
+In my v2 implementation, instead of having a single mutex for the entire hash table, I have one mutex for each `hash_table_entry` (bucket) in the hash table. This way, items that are to be put in different buckets by different threads can happen in parallel, allowing a speedup.
 
 In the `hash_table_v2_add_entry` function, the individual entry is locked, allowing other threads to add items to other buckets as long as they are not already in use. This is both thread-safe and fast.
 
