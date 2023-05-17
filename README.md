@@ -1,5 +1,5 @@
 # Hash Hash Hash
-This lab aims to implement a thread-safe hash table, which uses mutexes to ensure that no elements go missing when 2 threads try to add elements at the same time.
+This lab aims to implement a thread-safe hash table, which uses mutexes to ensure that no elements go missing when multiple threads try to add elements at the same time.
 
 ## Building
 To build, simply run `make` in the folder where the Makefile and all other files are present.
