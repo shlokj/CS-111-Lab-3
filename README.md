@@ -19,7 +19,7 @@ In the `hash_table_v1_add_entry` function, I call `pthread_mutex_lock` at the ve
 
 ### Performance
 
-As we can see in the Running section of this readme, the v1 hash table is slower than the base implementation - around twice as slow. This is expected since there is overhead due to the thread locking. Threads must wait for others to complete before accessing the hash table, resulting in longer wait times. Here's another example:
+As we can see in the Running section of this readme, the v1 hash table is slower than the base implementation - around twice as slow. This is expected since there is overhead due to the thread blocking. Threads must wait for others to complete before accessing the hash table, resulting in longer wait times. Here's another example:
 
 <img width="700" alt="image" src="https://github.com/shlokj/cs111-lab3/assets/34567765/86f8a364-9504-4468-b3ad-01039051a0d1">
 
