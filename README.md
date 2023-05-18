@@ -19,7 +19,11 @@ In the `hash_table_v1_add_entry` function, I call `pthread_mutex_lock` at the ve
 
 ### Performance
 
-As we can see in the Running section of this readme, the v1 hash table is slower than the base implementation - around twice as slow. This is expected since there is overhead due to the thread locking. Threads must wait for others to complete before accessing the hash table, resulting in longer wait times.
+As we can see in the Running section of this readme, the v1 hash table is slower than the base implementation - around twice as slow. This is expected since there is overhead due to the thread locking. Threads must wait for others to complete before accessing the hash table, resulting in longer wait times. Here's another example:
+
+<img width="700" alt="image" src="https://github.com/shlokj/cs111-lab3/assets/34567765/86f8a364-9504-4468-b3ad-01039051a0d1">
+
+Here too, v1 is slower than the base implementation.
 
 ## Second Implementation
 In my v2 implementation, instead of having a single mutex for the entire hash table, I have one mutex for each `hash_table_entry` (bucket) in the hash table. This way, items that are to be put in different buckets by different threads can happen in parallel, allowing a speedup.
@@ -28,9 +32,13 @@ In the `hash_table_v2_add_entry` function, the individual entry is locked, allow
 
 ### Performance
 
-As we can see in the Running section of this readme, the v2 hash table is significantly faster than the base implementation. This is because it optimally handles multiple threads without losing items.
+As we can see in the Running section of this readme, the v2 hash table is significantly faster than the base implementation. This is because it optimally handles multiple threads without losing items. This time the speed up is around 4 times because of how multithreading is handled.
 
-This time the speed up is around 4 times because of how multithreading is handled.
+Here's the same example from the previous section, continued:
+
+<img width="700" alt="image" src="https://github.com/shlokj/cs111-lab3/assets/34567765/9a65421e-02fa-4c96-be94-5ad77682ad52">
+
+As we can see, the speedup is approximately 5.6x. This is because although 8 threads are specified, there are only 6 performance cores on the M1 Pro chip, where I ran this test. This is expected since 5.6 is around 6.
 
 ## Cleaning up
 
