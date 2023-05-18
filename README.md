@@ -1,5 +1,5 @@
 # Hash Hash Hash
-This lab aims to implement a thread-safe hash table, which uses mutexes to ensure that no elements go missing when multiple threads try to add elements at the same time.
+This lab aims to implement two thread-safe hash tables and compare their runtimes. They use mutexes to ensure that no elements go missing when multiple threads try to add elements at the same time. The first one uses a single mutex for the enture
 
 ## Building
 To build, simply run `make` in the folder where the Makefile and all other files are present.
@@ -13,7 +13,7 @@ For example,
 
 ## First Implementation
 
-In my v1 implementation, I created a single mutex (`pthread_mutex_t mutex`) in the `hash_table_v1` struct. This is used to lock the entire hash table whenever an element is being added to it.
+In my v1 implementation, I created a single mutex (`pthread_mutex_t mutex`) in the `hash_table_v1` struct. This is used to lock the entire hash table whenever an element is being added to it. No more mutexes are required since all functions other than the add ones are called serially (given in the spec).
 
 In the `hash_table_v1_add_entry` function, I call `pthread_mutex_lock` at the very beginning to lock the hash table. All the work is then done, after which I call `pthread_mutex_unlock` to unlock it (also in the `if` statement for the case where it already exists). This is a slow but correct/safe implementation.
 
@@ -26,7 +26,7 @@ As we can see in the Running section of this readme, the v1 hash table is slower
 Here too, v1 is slower than the base implementation.
 
 ## Second Implementation
-In my v2 implementation, instead of having a single mutex for the entire hash table, I have one mutex for each `hash_table_entry` (bucket) in the hash table. This way, items that are to be put in different buckets by different threads can happen in parallel, allowing a speedup.
+In my v2 implementation, instead of having a single mutex for the entire hash table, I have one mutex for each `hash_table_entry` (bucket) in the hash table. This way, items that are to be put in different buckets by different threads can happen in parallel, allowing a speedup. No more mutexes are required since all functions other than the add ones are called serially (given in the spec).
 
 In the `hash_table_v2_add_entry` function, the individual entry is locked, allowing other threads to add items to other buckets as long as they are not already in use. Unlocking is done in a similar fashion as in v1. This is both thread-safe and fast.
 
