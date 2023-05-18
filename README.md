@@ -15,7 +15,7 @@ For example,
 
 In my v1 implementation, I created a single mutex (`pthread_mutex_t mutex`) in the `hash_table_v1` struct. This is used to lock the entire hash table whenever an element is being added to it.
 
-In the `hash_table_v1_add_entry` function, I call `pthread_mutex_lock` at the very beginning to lock the hash table. All the work is then done, after which I call `pthread_mutex_unlock` to unlock it. This is a slow but correct/safe implementation.
+In the `hash_table_v1_add_entry` function, I call `pthread_mutex_lock` at the very beginning to lock the hash table. All the work is then done, after which I call `pthread_mutex_unlock` to unlock it (also in the `if` statement for the case where it already exists). This is a slow but correct/safe implementation.
 
 ### Performance
 
@@ -28,7 +28,7 @@ Here too, v1 is slower than the base implementation.
 ## Second Implementation
 In my v2 implementation, instead of having a single mutex for the entire hash table, I have one mutex for each `hash_table_entry` (bucket) in the hash table. This way, items that are to be put in different buckets by different threads can happen in parallel, allowing a speedup.
 
-In the `hash_table_v2_add_entry` function, the individual entry is locked, allowing other threads to add items to other buckets as long as they are not already in use. This is both thread-safe and fast.
+In the `hash_table_v2_add_entry` function, the individual entry is locked, allowing other threads to add items to other buckets as long as they are not already in use. Unlocking is done in a similar fashion as in v1. This is both thread-safe and fast.
 
 ### Performance
 
