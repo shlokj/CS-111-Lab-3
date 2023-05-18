@@ -1,5 +1,6 @@
 #include "hash-table-base.h"
 
+#include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
@@ -92,6 +93,11 @@ void hash_table_v2_add_entry(struct hash_table_v2 *hash_table,
 	/* Update the value if it already exists */
 	if (list_entry != NULL) {
 		list_entry->value = value;
+		int unlock_ret = pthread_mutex_unlock(&hash_table_entry->mutex);
+		if (unlock_ret != 0) {
+			errno = lock_ret;
+			exit(errno);
+		}
 		return;
 	}
 

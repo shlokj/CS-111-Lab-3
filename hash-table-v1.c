@@ -91,6 +91,11 @@ void hash_table_v1_add_entry(struct hash_table_v1 *hash_table,
 	/* Update the value if it already exists */
 	if (list_entry != NULL) {
 		list_entry->value = value;
+		int unlock_ret = pthread_mutex_unlock(&hash_table->mutex);
+		if (unlock_ret != 0) {
+			errno = lock_ret;
+			exit(errno);
+		}
 		return;
 	}
 
